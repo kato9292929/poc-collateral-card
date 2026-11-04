@@ -7,7 +7,7 @@
 | 用途 | サービス | 確認した公式情報 | 版・日付 |
 |---|---|---|---|
 | 担保で利用枠が決まるカード | **ether.fi Cash の Borrow モード**（実証4と同じアカウント・カード） | 担保と借入：https://help.ether.fi/en/articles/304388-how-does-collateral-and-borrowing-work （利用枠は Vault の資産額 × 資産ごとの LTV。USDC は Aave LendGateway で LTV 81%、Optimism 上）／利用上限：https://help.ether.fi/en/articles/330661-managing-your-card-and-vault-limits （上限を上げても残高・借入枠を超えては使えない）／拒否：https://help.ether.fi/en/articles/262393-why-did-my-transaction-get-declined （アプリの取引履歴に「Decline reason」が出る） | Aave の市場パラメータは 2026-08-27 更新（ページの記載） |
-| エージェントが払う先 | 自社の Stripe（x402）の Payment Link（金額を買い手が決める、USD） | — | — |
+| 支払い先 | 自社の Stripe（x402）の Payment Link（金額を自由に入れられる、USD） | — | — |
 
 想定：担保 $5 × LTV 81% = 利用枠 **$4.05**。
 
