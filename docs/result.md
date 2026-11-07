@@ -16,7 +16,7 @@ ether.fi Cash の Vault の 1 日の利用上限を $4.05 にして、エージ�
 | 拒否の理由 | https://help.ether.fi/en/articles/262393-why-did-my-transaction-get-declined | アプリの取引履歴で、拒否された支払いの「Decline reason」に理由が出る。ether.fi に届く前に拒否されたものは履歴に出ないことがある |
 | 担保と借入（当初の案） | https://help.ether.fi/en/articles/304388-how-does-collateral-and-borrowing-work | 借入枠は Vault の資産額 × 資産ごとの LTV（USDC は 81%） |
 
-## 指示書との違い
+## 当初の案からの変更
 
 - **当初の「担保 $5 × LTV 81% で利用枠を決める」をやめ、「Vault の 1 日の利用上限 $4.05 を予算上限にする」に変えた。** 理由：このアカウントの Vault にはすでに約 $1,554 あり（2026-11-06 の画面：Available to spend $1,553.91、Available to borrow $1,258.13）、Borrow モードでは Vault の資産すべてが担保になるので、担保を $5 にできない。資産は動かさない。$1,258.13 ÷ $1,553.92 ≈ 81% で、USDC の LTV 81% とは合っていた
 - 支払いは Borrow モードに切り替えず、**Direct Pay のまま**行う
