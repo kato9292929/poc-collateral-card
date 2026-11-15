@@ -1,0 +1,44 @@
+name: run-6
+# 実証6 を PAY.JP のテストモードで実行する。手動実行ができないため、runs-request/ にファイルを push したときだけ動く
+# 1) 実装前の確認（scripts/feasibility-6.ts）。payjp.js でトークンを作れなければ、そこで止める
+# 2) 本番の実行（scripts/run-6.ts）
+# 結果は docs/runs/ にコミットする。キーは Secrets からだけ読む
+on:
+  push:
+    branches: [main]
+    paths: ['runs-request/**']
+permissions:
+  contents: write
+concurrency: run-6
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PAYJP_SECRET_KEY_A: ${{ secrets.PAYJP_SECRET_KEY_A }}
+      PAYJP_PUBLIC_KEY_A: ${{ secrets.PAYJP_PUBLIC_KEY_A }}
+      PAYJP_SECRET_KEY_B: ${{ secrets.PAYJP_SECRET_KEY_B }}
+      PAYJP_PUBLIC_KEY_B: ${{ secrets.PAYJP_PUBLIC_KEY_B }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
+      - name: check keys (kind and length only)
+        run: node --experimental-strip-types --no-warnings scripts/check-keys.ts
+      - name: 実装前の確認
+        id: feas
+        run: npm run feasibility
+      - name: 実証6
+        if: steps.feas.outcome == 'success'
+        run: npm run run-6
+      - name: commit results
+        if: always()
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@users.noreply.github.com
+          git add docs/runs || true
+          git commit -m "run-6 results" && git push || echo "nothing to commit"
